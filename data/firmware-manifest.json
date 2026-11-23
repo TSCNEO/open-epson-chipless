@@ -1,0 +1,48 @@
+{
+  "descripcion": "Hashes de referencia de firmware OFICIAL de Epson. No se distribuyen binarios: se usan para comprobar el fichero que aporta el usuario.",
+  "familias": [
+    {
+      "familia": "Epson XP-243 / XP-245 / XP-247",
+      "codigo_firmware": "FWF731TL",
+      "donde_obtenerlo": "Sitio de soporte de Epson, serie XP-243 245 247, apartado de firmware",
+      "versiones": [
+        {
+          "version": "20.25.EF20J9.FY16",
+          "fecha": "2019-10-10",
+          "sha256_efu": "3e9ae697fadece00618217da9737866ff8f0a1c38030edd4ac8eb24848ab4074",
+          "tamano_efu": 7536294,
+          "sha256_rcx": "fec90a9fdfd0374dd1b2b0235a669b4bc04d7aec446ddfe4280fb17566e1220b",
+          "tamano_rcx": 9593123,
+          "soporte": {
+            "construir": true,
+            "spec": "data/patches/xp243-245-247/ef20j9.json",
+            "nota": "Version base probada en hardware."
+          }
+        }
+      ]
+    },
+    {
+      "familia": "Epson XP-342 / XP-345",
+      "codigo_firmware": "FWG016TL",
+      "donde_obtenerlo": "Sitio de soporte de Epson, apartado de firmware de recuperación (paquete .exe)",
+      "versiones": [
+        {
+          "version": "1E.26.MJ01O7.FY16",
+          "sha256_efu": "1416eda96307fd1c2f05dc6a5871458a163e47d1e2be250aa067d56637366e2d",
+          "tamano_efu": 9706502,
+          "sha256_rcx": "f4b774262f6b16170190c364e08cec1825517a089fb84a7a45404259eb909f3c",
+          "tamano_rcx": 15884579,
+          "soporte": {
+            "descubrir": true,
+            "construir": "solo borrador",
+            "nota": "Usado como prueba de portabilidad: la herramienta localiza el mismo subsistema con desplazamiento +0x18/+0x20. No validado en hardware."
+          }
+        }
+      ]
+    }
+  ],
+  "como_comprobar": [
+    "python3 tools/inspeccionar.py <fichero> --resumen",
+    "La cadena de paquete y los hashes deben coincidir con esta tabla antes de construir."
+  ]
+}

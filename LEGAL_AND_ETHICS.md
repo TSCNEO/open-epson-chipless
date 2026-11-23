@@ -10,15 +10,19 @@ what it is not, and what publishing or redistributing it involves.
 
 Independent technical research on **interoperability and the right to repair** a device the
 author owns: understanding how the official firmware of the Epson XP-243/XP-245/XP-247 is
-packaged and verified, and documenting a reproducible, read-only inspection.
+packaged and verified, and documenting a reproducible method to patch it locally.
 
-This release is a **read-only inspector**. It parses official update packages obtained
-locally by the reader and reports their structure and hashes.
+This release contains two things: a set of **inspection tools** that parse and hash official
+update packages, and a set of **build tools** that produce a patched image from the reader's
+own official package, offline, on the reader's machine. Nothing is downloaded and nothing is
+signed: the build only rewrites bytes inside the official image.
 
 ## 2. What this release is not
 
-- It does **not** build, modify, sign, or flash firmware. Building and validating an
-  installable image is outside the scope of this release.
+- It does **not** sign firmware, and it cannot: no vendor key is involved anywhere.
+- It does **not** flash anything for you. Flashing is a manual step with the official updater,
+  on hardware the reader owns.
+- It does **not** ship a ready-made image: the reader builds it from their own official package.
 - It does **not** include, crack, or run any vendor activator or licence tool.
 - It does **not** redistribute Epson firmware or any third-party binary; readers supply
   their own official packages.
@@ -45,9 +49,10 @@ restrict even research tools.
   and Article 100 decompilation for interoperability.
 - **Other jurisdictions** may be stricter and may criminalise distribution.
 
-Because this release is read-only analysis, its own legal exposure is lower than that of a
-circumvention tool. Publishing or extending the surrounding project may still fall under
-anti-circumvention rules in your country.
+This release produces a patched image on the reader's own machine, so it is closer to a
+circumvention tool than to a pure analysis paper. Publishing or extending it may fall under
+anti-circumvention rules in your country. The absence of binaries, keys and vendor code lowers
+the practical exposure but does not eliminate it.
 
 ## 4. Responsible use
 
@@ -67,9 +72,8 @@ anti-circumvention rules in your country.
 
 ## 6. Risks
 
-- The inspector is read-only and does not write to hardware.
-- Any firmware modification (outside this release's scope) can **permanently brick** a
-  printer and voids the warranty. Take a full, verified physical dump of the SPI flash chip
+- The inspectors are read-only and never write to hardware.
+- Flashing a modified image can **permanently brick** a printer and voids the warranty. Take a full, verified physical dump of the SPI flash chip
   (e.g. CH341A + SOIC-8 clip) before any flashing.
 
 ## 7. Disclaimer

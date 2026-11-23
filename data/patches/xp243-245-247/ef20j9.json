@@ -1,0 +1,120 @@
+{
+  "familia": "Epson XP-243 / XP-245 / XP-247",
+  "codigo_firmware": "FWF731TL",
+  "version_base": "20.25.EF20J9.FY16",
+  "sha256_rcx_base": "fec90a9fdfd0374dd1b2b0235a669b4bc04d7aec446ddfe4280fb17566e1220b",
+  "z2_sha256_base": "68e9647c0bd5aa226e9628535e0b368c55213c58dfc17270b23e320125ea18a4",
+  "layout": {
+    "tamano_z1": 7483392,
+    "tamano_z2": 2109440,
+    "tamano_cabecera_ipl": 4096,
+    "tamano_seg0": 8192,
+    "offset_seg1": 12288,
+    "tamano_bootloader": 65536,
+    "prefijo_flash_inicio": 65536,
+    "prefijo_flash_fin": 262144,
+    "crom3_offset_flash": 2162688
+  },
+  "hook": {
+    "va": "0x00032100",
+    "offset_instr_trampolin": 25404,
+    "offset_puntero_trampolin": 25408,
+    "instr_trampolin": "0xE51FF004",
+    "destino_original": "0x41EAD6E8",
+    "funcion_flush_dcache": "0x00015840"
+  },
+  "crom3_base_ram": "0x41C2D000",
+  "parches": [
+    {
+      "va": "0x41C2E07C",
+      "original": "0xE92D47F0",
+      "nuevo": "0xE3A00000",
+      "nota": "lectura CSIC: push {r4-sl, lr} -> mov r0, #0 (exito inmediato)"
+    },
+    {
+      "va": "0x41C2E080",
+      "original": "0xE1A05001",
+      "nuevo": "0xE12FFF1E",
+      "nota": "lectura CSIC: mov r5, r1 -> bx lr"
+    },
+    {
+      "va": "0x41C2E120",
+      "original": "0xE92D47F0",
+      "nuevo": "0xE3A00000",
+      "nota": "escritura CSIC: push {r4-sl, lr} -> mov r0, #0"
+    },
+    {
+      "va": "0x41C2E124",
+      "original": "0xE1A06001",
+      "nuevo": "0xE12FFF1E",
+      "nota": "escritura CSIC: mov r6, r1 -> bx lr"
+    },
+    {
+      "va": "0x41C2FD28",
+      "original": "0xE3A00000",
+      "nuevo": "0xE3A00001",
+      "nota": "comprobacion de registros: devuelve siempre 1 (cartucho presente)"
+    },
+    {
+      "va": "0x41C41958",
+      "original": "0xEBFFB8F5",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0 (sin error)"
+    },
+    {
+      "va": "0x41C423C8",
+      "original": "0xEB0D679C",
+      "nuevo": "0xE3A00000",
+      "nota": "llamada auxiliar en Z1_CROM0 -> mov r0, #0"
+    },
+    {
+      "va": "0x41C42850",
+      "original": "0xEBFFB537",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C42B20",
+      "original": "0xEBFFB483",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C43390",
+      "original": "0xEBFFB267",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C43480",
+      "original": "0xEBFFB22B",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C4610C",
+      "original": "0xEBFFA708",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C48F98",
+      "original": "0xEBFF9B65",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C4920C",
+      "original": "0xEBFF9AC8",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    },
+    {
+      "va": "0x41C497D0",
+      "original": "0xEBFF9957",
+      "nuevo": "0xE3A00000",
+      "nota": "bl agregador de estado -> mov r0, #0"
+    }
+  ],
+  "crom3_p0_sha256": "b2ad8f8c7152fc8ca02c87bfaf2be5dd24f4ec914dfcdbffd404912f9f9eeb14"
+}

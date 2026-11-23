@@ -1,0 +1,72 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Compilar todo el codigo
+        run: python -m compileall -q tools
+
+      - name: Las herramientas responden
+        run: |
+          python tools/inspeccionar.py --help > /dev/null
+          python tools/construir.py --help > /dev/null
+          python tools/verificar.py --help > /dev/null
+          python tools/pagina_prueba.py --help > /dev/null
+          python -c "import ast,pathlib; ast.parse(pathlib.Path('tools/inspect_firmware.py').read_text())"
+
+      - name: La pagina de prueba se genera y es un PDF
+        run: |
+          python tools/pagina_prueba.py --out /tmp/pagina.pdf --version 20.25.EF20J9 --hash abc123
+          head -c 8 /tmp/pagina.pdf | grep -q '%PDF-1.4' && echo "PDF OK"
+
+      - name: El descubridor arranca (necesita capstone)
+        run: |
+          python -m pip install --quiet capstone
+          python tools/descubrir.py --help > /dev/null
+
+      - name: La tabla de parches es coherente
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          spec = json.loads(pathlib.Path("data/patches/xp243-245-247/ef20j9.json").read_text())
+          assert len(spec["parches"]) == 15, "se esperaban 15 puntos de parche"
+          base = int(spec["crom3_base_ram"], 0)
+          for p in spec["parches"]:
+              off = int(p["va"], 0) - base
+              assert 0 <= off < 498272, f"offset fuera del bloque: {p['va']}"
+              assert len(p["original"]) == 10 and len(p["nuevo"]) == 10, f"palabra mal formada: {p['va']}"
+          print("tabla de parches OK")
+          EOF
+
+      - name: No se ha colado ningun binario de firmware
+        run: |
+          if git ls-files | grep -Ei '\.(efu|rcx|bin)$'; then
+            echo "ERROR: hay binarios de firmware versionados"; exit 1
+          fi
+          if [ "$(git ls-files | grep -Ei '\.zip$' | wc -l)" -ne 0 ]; then
+            echo "ERROR: hay ZIP versionados"; exit 1
+          fi
+          echo "arbol limpio de binarios"
+
+      - name: Sin datos de infraestructura privada
+        run: |
+          if git ls-files '*.md' '*.py' '*.json' | xargs grep -nE '(^|[^0-9])(192\.168\.|10\.[0-9]+\.|172\.(1[6-9]|2[0-9]|3[01])\.|\.ovh|\.lan\b)' | grep -v '192\.0\.2\|198\.51\.100\|203\.0\.113'; then
+            echo "ERROR: IPs privadas o dominios internos en el arbol"; exit 1
+          fi
+          echo "sin datos de infraestructura"

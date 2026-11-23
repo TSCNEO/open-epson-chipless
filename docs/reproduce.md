@@ -1,6 +1,6 @@
 # Reproducing the firmware inspection
 
-The normal entry point is `python3 inspect_firmware.py PACKAGE`. A reimplementation in another language or by another coding assistant should preserve the checks below and emit equivalent JSON. Use synthesized fixtures and firmware packages supplied locally by the reader.
+The normal entry point is `python3 tools/inspect_firmware.py PACKAGE`. A reimplementation in another language or by another coding assistant should preserve the checks below and emit equivalent JSON. Use synthesized fixtures and firmware packages supplied locally by the reader.
 
 1. Accept a raw RCX or unwrap up to two ZIP layers. At each layer require exactly one non-directory member with an EFU or RCX suffix. Enforce the 64 MiB limit for the input and for each declared uncompressed member.
 2. Parse the EpsonNet text manifest through its form-feed terminator. Read the declared package version and enumerate the numbered IPL zones in order. Require each zone to begin with the IPL marker and verify that the declared lengths account for the remaining RCX bytes.
@@ -17,7 +17,7 @@ The report describes file structure and byte identity. Verification of on-device
 Use the [EF20J9 reference report](ef20j9-reference.json) as the expected output for the official Epson XP-247 package. Its manifest declares `20.25.EF20J9.FY16` and the printer reports `20.25.EF20J9`. Confirm the RCX SHA-256 against the report before treating another file as the same build.
 
 ```sh
-python3 inspect_firmware.py path/to/EF20J9.efu > observed.json
+python3 tools/inspect_firmware.py path/to/EF20J9.efu > observed.json
 diff -u docs/ef20j9-reference.json observed.json
 ```
 
@@ -25,27 +25,19 @@ The reference contains two IPL zones. The first contains a Linux ARM uImage and 
 
 ### What was observed on hardware
 
-One Epson XP-247 was tested with `20.25.EF20J9` as the official starting point. After a locally built test image was installed over Wi-Fi, the printer restarted and its web interface responded. The version display still read `20.25.EF20J9`.
+One Epson XP-247 was tested with `20.25.EF20J9` as the official starting point. After a locally built image was installed over Wi-Fi, the printer restarted and its web interface responded. The version display still read `20.25.EF20J9`.
 
-The web status page reported black at 74%, cyan at 84%, magenta at 96%, and yellow at 100% before the update. After the restart it reported 100% for all four colors. These figures describe the display. Physical ink levels and successful printing with a chip-free cartridge remain unverified. This case covers one printer and one firmware build.
+The web status page reported black at 74%, cyan at 84%, magenta at 96%, and yellow at 100% before the update. After the restart it reported 100% for all four colors.
+
+That only described the display. The physical test came later: a colour cartridge the printer had counted down to **2 %**, with its chip contacts covered in adhesive tape, was installed. The printer raised no warning, accepted a print job from the driver queue and completed it in 48 seconds, and the page came out with all four colour bars solid. The four levels still reported 100 % afterwards. Full log in [verificado.md](en/verificado.md).
+
+This case covers one printer and one firmware build. Flashing on other models and versions remains unverified.
 
 ### Report a result for another printer
 
-1. Record the exact model and current version from the printer. Run the read-only inspector on the local official update package and record its RCX SHA-256. A shared model family or version string alone cannot establish compatibility.
-2. Record the cartridge types and the four displayed levels, then run a nozzle check using the printer's normal maintenance controls. Save the results as the baseline.
-3. If evaluating an independent build, repeat the nozzle check and the level readings after the printer restarts. Record whether the panel and web interface respond, whether each cartridge has a chip, and whether a page actually prints. Repeat after a separate power cycle to check persistence. Leave any check you did not perform marked as untested.
+The most useful contribution is a filled-in result report. Use the template in
+[result-template.md](en/result-template.md): model, official version, RCX SHA-256, baseline levels
+and nozzle check, what printed with the chip covered, and every check you did **not** perform.
 
-Use this format when sharing a result.
-
-```text
-Printer model:
-Official firmware version:
-Official RCX SHA-256:
-Cartridges and chip presence:
-Baseline ink readings and nozzle check:
-Build under evaluation:
-Restart and status response:
-Ink readings and nozzle check after restart:
-Print job result with chip-free cartridge:
-Result after a separate power cycle:
-```
+The pipeline that builds and verifies an image is documented in [../README.md](../README.md) and,
+step by step for an automated agent, in [../AGENTS.md](../AGENTS.md).

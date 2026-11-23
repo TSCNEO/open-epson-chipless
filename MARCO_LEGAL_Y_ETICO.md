@@ -10,15 +10,19 @@ publicación, qué no es, y qué implica publicarla o redistribuirla.
 
 Investigación técnica independiente sobre **interoperabilidad y derecho a la reparación** de
 un equipo propio: entender cómo se empaqueta y verifica el firmware oficial de la Epson
-XP-243/XP-245/XP-247, y documentar una inspección reproducible de **solo lectura**.
+XP-243/XP-245/XP-247, y documentar un método reproducible para parchearlo en local.
 
-Esta publicación es un **inspector de solo lectura**. Analiza paquetes oficiales de
-actualización que el lector obtiene localmente y describe su estructura y sus hashes.
+Esta publicación contiene dos cosas: **herramientas de inspección** que analizan y hashean
+paquetes oficiales, y **herramientas de construcción** que generan una imagen parcheada a partir
+del paquete oficial del lector, en local y sin red. No se descarga nada y no se firma nada: la
+build solo reescribe bytes dentro de la imagen oficial.
 
 ## 2. Qué no es esta publicación
 
-- **No** construye, modifica, firma ni flashea firmware. La construcción y validación de una
-  imagen instalable quedan fuera del alcance de esta versión.
+- **No** firma firmware, y no puede: aquí no hay ninguna clave del vendedor.
+- **No** flashea nada por ti. Flashear es un paso manual con el actualizador oficial, sobre
+  hardware propio.
+- **No** distribuye una imagen lista para usar: cada lector la construye desde su paquete oficial.
 - **No** incluye, crackea ni ejecuta ningún activador o herramienta de licencia de terceros.
 - **No** redistribuye firmware de Epson ni binarios de terceros; cada lector aporta su propio
   paquete oficial.
@@ -45,8 +49,9 @@ jurisdicciones restringen incluso las herramientas de investigación.
   la descompilación para interoperabilidad.
 - **Otras jurisdicciones** pueden ser más estrictas e incluso criminalizar la distribución.
 
-Como esta publicación es análisis de solo lectura, su exposición legal propia es menor que la
-de una herramienta de elusión. Publicar o ampliar el proyecto en torno a ella puede seguir
+Esta publicación genera una imagen parcheada en la máquina del lector, así que está más cerca de
+una herramienta de elusión que de un análisis puro. La ausencia de binarios, claves y código del
+vendedor reduce la exposición práctica, pero no la elimina. Publicar o ampliar el proyecto en torno a ella puede seguir
 cayendo bajo las normas anti-elusión de tu país.
 
 ## 4. Uso responsable
@@ -68,7 +73,7 @@ cayendo bajo las normas anti-elusión de tu país.
 
 ## 6. Riesgos
 
-- El inspector es de solo lectura y no escribe en el hardware.
+- Los inspectores son de solo lectura y no escriben en el hardware.
 - Cualquier modificación de firmware (fuera del alcance de esta publicación) puede
   **inutilizar permanentemente** la impresora y anula la garantía. Realiza un volcado físico
   completo y verificado del chip flash SPI (p. ej. CH341A + pinza SOIC-8) antes de cualquier

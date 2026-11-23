@@ -9,3 +9,6 @@ __pycache__/
 *.exe
 *.dmg
 *.bin
+
+build/
+!data/**/*.json
