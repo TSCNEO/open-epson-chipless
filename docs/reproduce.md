@@ -25,6 +25,27 @@ The reference contains two IPL zones. The first contains a Linux ARM uImage and 
 
 ### What was observed on hardware
 
-One Epson XP-247 was tested with `20.25.EF20J9` as the official starting point. After a locally built test image was installed over Wi-Fi, the printer restarted and its web interface responded. The version display still read `20.25.EF20J9`. The four displayed ink levels changed from varying readings to 100%. These are display readings. The record contains no completed print job with a physically chip-free cartridge.
+One Epson XP-247 was tested with `20.25.EF20J9` as the official starting point. After a locally built test image was installed over Wi-Fi, the printer restarted and its web interface responded. The version display still read `20.25.EF20J9`.
 
-For subsequent evaluations, record the exact model and starting version, input SHA-256, whether the printer restarted and responded, the four reported ink levels, and whether a page actually printed. Specify whether a chip was present and record a separate result after another power cycle. Keep the package inspection, the hardware observations, and any inference about compatibility distinct in the resulting report. This case covers one printer and one firmware build.
+The web status page reported black at 74%, cyan at 84%, magenta at 96%, and yellow at 100% before the update. After the restart it reported 100% for all four colors. These figures describe the display. Physical ink levels and successful printing with a chip-free cartridge remain unverified. This case covers one printer and one firmware build.
+
+### Report a result for another printer
+
+1. Record the exact model and current version from the printer. Run the read-only inspector on the local official update package and record its RCX SHA-256. A shared model family or version string alone cannot establish compatibility.
+2. Record the cartridge types and the four displayed levels, then run a nozzle check using the printer's normal maintenance controls. Save the results as the baseline.
+3. If evaluating an independent build, repeat the nozzle check and the level readings after the printer restarts. Record whether the panel and web interface respond, whether each cartridge has a chip, and whether a page actually prints. Repeat after a separate power cycle to check persistence. Leave any check you did not perform marked as untested.
+
+Use this format when sharing a result.
+
+```text
+Printer model:
+Official firmware version:
+Official RCX SHA-256:
+Cartridges and chip presence:
+Baseline ink readings and nozzle check:
+Build under evaluation:
+Restart and status response:
+Ink readings and nozzle check after restart:
+Print job result with chip-free cartridge:
+Result after a separate power cycle:
+```
