@@ -6,6 +6,10 @@ Experimental, read-only firmware research for the Epson XP-247.
 
 > **Disclaimer.** This is an experimental project. I have one Epson XP-247 available for testing. The project is provided as is, without support or warranty. Use it at your own risk. The author disclaims liability to the extent permitted by applicable law.
 
+## Scope and legal framework
+
+This release is a **read-only inspector** for official Epson update packages; it does not build, modify, or flash firmware. The project is research on interoperability and the right to repair. Public distribution of circumvention technology is regulated in some jurisdictions (DMCA §1201, EU Directive 2001/29/EC Art. 6, Spain LPI arts. 160-161). See [LEGAL_AND_ETHICS.md](LEGAL_AND_ETHICS.md). Not legal advice.
+
 ## Inspect an update package
 
 The inspector runs locally with Python 3.9 or newer and the standard library. Supply a distribution ZIP, EFU, or RCX. It reports the package version, firmware markers, region sizes, SHA-256 hashes, and CRC status for recognized uImage data. The output uses JSON and offsets are measured from the start of the uncompressed RCX.

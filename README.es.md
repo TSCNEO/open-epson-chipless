@@ -6,6 +6,10 @@ Proyecto experimental de análisis de firmware de solo lectura para la Epson XP-
 
 > **Aviso.** Proyecto experimental. Solo dispongo de una Epson XP-247 para pruebas. Se proporciona tal cual, sin soporte ni garantía. El uso corre por tu cuenta. El autor declina toda responsabilidad en la medida permitida por la ley aplicable.
 
+## Alcance y marco legal
+
+Esta publicación es un **inspector de solo lectura** de paquetes oficiales de Epson; no construye, modifica ni flashea firmware. El proyecto es investigación sobre interoperabilidad y derecho a la reparación. La distribución pública de tecnología de elusión está regulada en algunas jurisdicciones (DMCA §1201, Directiva 2001/29/CE art. 6, LPI arts. 160-161). Ver [MARCO_LEGAL_Y_ETICO.md](MARCO_LEGAL_Y_ETICO.md). No es asesoría legal.
+
 ## Inspeccionar una actualización
 
 Requiere Python 3.9 o posterior. El inspector analiza un ZIP de distribución, un EFU o un RCX y devuelve un informe JSON con la versión, los tamaños, los hashes SHA-256 y la comprobación CRC de los datos uImage reconocidos.
