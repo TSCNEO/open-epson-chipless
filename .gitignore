@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+
+# Local firmware inputs and extracts
+*.efu
+*.rcx
+*.zip
+*.rar
+*.exe
+*.dmg
+*.bin
