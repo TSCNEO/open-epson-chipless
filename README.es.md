@@ -14,7 +14,7 @@ Requiere Python 3.9 o posterior. El inspector analiza un ZIP de distribución, u
 python3 inspect_firmware.py ruta/a/actualizacion.efu
 ```
 
-Esta publicación contiene el inspector. La construcción y validación de una imagen instalable quedan fuera del alcance de esta versión. Los archivos de firmware se leen de forma local. [Guía de reproducción en inglés](docs/reproduce.md)
+Esta publicación contiene el inspector. La construcción y validación de una imagen instalable quedan fuera del alcance de esta versión. Los archivos de firmware se leen de forma local. [Guía para LLM y resultados de la prueba en la XP-247 (en inglés)](docs/reproduce.md)
 
 ## Licencia
 

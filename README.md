@@ -17,7 +17,7 @@ python3 inspect_firmware.py path/to/candidate.efu > candidate.json
 diff -u reference.json candidate.json
 ```
 
-The repository ships an inspector. Building and validating an installable firmware image is outside the scope of this release. Firmware inputs stay local. [Reproducing the inspector and its results](docs/reproduce.md)
+The repository ships an inspector. Building and validating an installable firmware image is outside the scope of this release. Firmware inputs stay local. [Reproduction guide for coding assistants and XP-247 hardware observations](docs/reproduce.md)
 
 ## License
 

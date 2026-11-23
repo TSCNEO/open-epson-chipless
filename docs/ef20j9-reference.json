@@ -1,0 +1,66 @@
+{
+  "rcx_sha256": "fec90a9fdfd0374dd1b2b0235a669b4bc04d7aec446ddfe4280fb17566e1220b",
+  "rcx_size": 9593123,
+  "package": "20.25.EF20J9.FY16",
+  "blocks": [
+    {
+      "zone": "Z_1",
+      "offset": 291,
+      "size": 7483392,
+      "sha256": "223dec8718bbbb5b9b8148b92cb97103d8fb557f8131d25bb52b79c125387091",
+      "ef_markers": [
+        {
+          "offset": 2499875,
+          "value": "EF20J9"
+        },
+        {
+          "offset": 2502939,
+          "value": "EF20J9"
+        }
+      ],
+      "components": [
+        {
+          "offset": 2503971,
+          "size": 1041380,
+          "sha256": "95731e816c99b3fd4a34a87043d42a1986854bf741401d7e16b89c475016fdd5",
+          "type": "uImage",
+          "name": "Linux-2.6.35.8-arm1",
+          "data_crc32_ok": true
+        },
+        {
+          "offset": 3617059,
+          "size": 910352,
+          "sha256": "02a4e5e168a29bbbb84eb2fcc61c38317f9156962a845d7f1153f3e1af3269c5",
+          "type": "SquashFS 4.0",
+          "inodes": 425,
+          "compression_id": 4
+        },
+        {
+          "offset": 4665635,
+          "size": 2222430,
+          "sha256": "7358f4cfd459ef9d702f379d585db41c257725dcc62eabaef87f317eab11fa7f",
+          "type": "SquashFS 4.0",
+          "inodes": 32,
+          "compression_id": 4
+        }
+      ]
+    },
+    {
+      "zone": "Z_2",
+      "offset": 7483683,
+      "size": 2109440,
+      "sha256": "68e9647c0bd5aa226e9628535e0b368c55213c58dfc17270b23e320125ea18a4",
+      "ef_markers": [
+        {
+          "offset": 7495971,
+          "value": "EF20J9"
+        },
+        {
+          "offset": 9264907,
+          "value": "EF20J9"
+        }
+      ],
+      "components": []
+    }
+  ]
+}
